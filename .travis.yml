@@ -17,6 +17,9 @@
 
 sudo: required
 
+arch: 
+  - arm64
+
 addons:
   sonarcloud:
     organization: "apache"
