@@ -22,15 +22,10 @@ arch:
   - amd64
   
 install: 
-     - if [ `uname -m` == 'aarch64' ]; then 
-         sudo apt-get update
-         sudo apt-get install openjdk-8-jdk
-         java -version
-         sudo apt-get install -y maven
-       else
-       jdk:
-        openjdk8
-       fi
+     - sudo apt-get update
+     - sudo apt-get install openjdk-8-jdk
+     - java -version
+     - sudo apt-get install -y maven
 
 addons:
   sonarcloud:
