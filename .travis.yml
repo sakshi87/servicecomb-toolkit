@@ -18,6 +18,11 @@
 sudo: required
   
 install: 
+     - sudo apt-get update
+     - sudo apt-get install openjdk-8-jdk
+     - if [ `uname -m` == 'aarch64' ]; then export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64; fi
+     - if [ `uname -m` == 'x86' ]; then export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-x86; fi
+     - export PATH=$JAVA_HOME:$PATH;
      - java -version
      - sudo apt-get install -y maven
 
