@@ -16,10 +16,6 @@
 ## ---------------------------------------------------------------------------
 
 sudo: required
-
-arch: 
-  - arm64
-  - amd64
   
 install: 
      - sudo apt-get update
@@ -46,7 +42,19 @@ jobs:
   include:
   - stage: Test
     script: ./scripts/test.sh
+    arch: arm64
+  - stage: Test
+    script: ./scripts/test.sh
+    arch: amd64
   - stage: Cli Test
     script: ./scripts/cliTest.sh
+    arch: arm64
+  - stage: Cli Test
+    script: ./scripts/cliTest.sh
+    arch: amd64
   - stage: Deploy on
     script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
+    arch: arm64
+  - stage: Deploy on
+    script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
+    arch: amd64
