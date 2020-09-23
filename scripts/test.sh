@@ -35,7 +35,7 @@ else
     exit 1
   fi
   
-  MVN_CMD="clean install -Pjacoco"
+  MVN_CMD="clean install -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID -Pjacoco"
   
   if [ -n "$TRAVIS_JOB_ID" ]; then
     echo "${green}[SCRIPT] It's a travis job.${reset}"
