@@ -16,15 +16,10 @@
 ## ---------------------------------------------------------------------------
 
 sudo: required
-  
-install: 
-     - sudo apt-get update
-     - sudo apt-get install openjdk-8-jdk
-     - if [ `uname -m` == 'aarch64' ]; then export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64; fi
-     - if [ `uname -m` == 'x86_64' ]; then export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64; fi
-     - export PATH=$JAVA_HOME:$PATH;
-     - java -version
-     - sudo apt-get install -y maven
+
+arch:
+  - amd64
+  - arm64
 
 addons:
   sonarcloud:
@@ -51,34 +46,3 @@ jobs:
     script: ./scripts/cliTest.sh
   - stage: Deploy on
     script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
-
-    
-# SonarCloud give a warning if using shallow clone (default), so we disable it
-git:
-  depth: false
-
-cache:
-  directories:
-  - "$HOME/.m2"
-
-language: java
-jobs:
-  include:
-  #- stage: Test
-  #  script: ./scripts/test.sh
-  #  arch: arm64
-  #- stage: Test
-  #  script: ./scripts/test.sh
-  #  arch: amd64
-  - stage: Cli Test
-    script: ./scripts/cliTest.sh
-    arch: arm64
-  - stage: Cli Test
-    script: ./scripts/cliTest.sh
-    arch: amd64
-  - stage: Deploy on
-    script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
-    arch: arm64
-  - stage: Deploy on
-    script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
-    arch: amd64
