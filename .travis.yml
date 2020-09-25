@@ -17,10 +17,6 @@
 
 sudo: required
 
-arch:
-  - amd64
-  - arm64
-
 addons:
   sonarcloud:
     organization: "apache"
@@ -42,7 +38,16 @@ jobs:
   include:
   - stage: Test
     script: ./scripts/test.sh
+  - stage: Test
+    arch: arm64
+    script: ./scripts/test.sh
   - stage: Cli Test
     script: ./scripts/cliTest.sh
+  - stage: Cli Test
+    arch: arm64
+    script: ./scripts/cliTest.sh
   - stage: Deploy on
+    script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
+  - stage: Deploy on
+    arch: arm64  
     script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
